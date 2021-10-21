@@ -2,23 +2,44 @@ def jogar():
     print("************************************")
     print("**** Bem vindo ao jogo de Forca ****")
     print("************************************")
+    palavra_secreta = "anao".lower()
+    palavra_console = ["_" for letra in palavra_secreta]
 
-    palavra_secreta = "banana"
+#   inteiros = [1, 3, 4, 5, 7, 8, 9]
+#   pares = [x for x in inteiros if x % 2 == 0]
+
+
     enforcou = False
     acertou = False
-    index = 0
+    tentativas = 6
+    print(palavra_console)
 
-    while(not enforcou and not acertou):
+    while (not enforcou and not acertou):
+        index = 0
         chute = input("Digite uma letra: ")
-        chute = chute.strip()
+        chute = chute.strip().lower()
 
-        for letra in palavra_secreta:
-            if(chute.lower() == letra.lower()):
-                print("Letra {} encontrada na posição {}.".format(chute, index))
-            index += 1
+        if (chute in palavra_secreta):
+            for letra in palavra_secreta:
+                if (chute == letra):
+                    palavra_console[index] = letra
+                index += 1
+            print(palavra_console)
+        else:
+            tentativas -= 1
+
+        acertou = "_" not in palavra_console
+        print("Você errou. Restam {} tentativas.".format(tentativas))
+        enforcou = tentativas == 0
+
+    if (acertou):
+        print("Parabéns! Você venceu. A palavra é: {}".format(palavra_secreta))
+    else:
+        print("Fim da linha. Você perdeu.")
 
     print("Fim de jogo!")
 
-#Necessário para execução via Command. Verifica se a execução foi startada a partir dessa classe.
+
+# Necessário para execução via Command. Verifica se a execução foi startada a partir dessa classe.
 if (__name__ == "__main__"):
     jogar()
